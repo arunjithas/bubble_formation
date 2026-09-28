@@ -1,0 +1,30 @@
+# Dependencies for bubble_sim.py and analyze_video.py
+#
+#   pip install -r requirements.txt
+#
+# Version floors are set where the code or the ecosystem actually needs them;
+# everything was developed and validated against the versions in the comments.
+
+# --- bubble_sim.py (simulation + visualisation) ---------------------------
+numpy>=1.24            # tested 2.4.4
+scipy>=1.10            # tested 1.17.1   cKDTree, ndimage.gaussian_filter
+matplotlib>=3.7        # tested 3.10.8   FuncAnimation, imshow
+
+# --- analyze_video.py (measurement pipeline) ------------------------------
+# opencv-python must be >=4.10 if you are on numpy 2.x, or the ABI breaks.
+opencv-python>=4.10    # tested 4.13.0   video decode, Farneback optical flow
+scikit-image>=0.21     # tested 0.26.0   feature.blob_log
+
+# --- notes ----------------------------------------------------------------
+# pillow arrives with matplotlib and is what writes  --save foam.gif
+# (tested 12.1.1), so it needs no entry of its own.
+#
+# Writing MP4 needs the ffmpeg *binary* on PATH -- it is not a pip package:
+#     macOS    brew install ffmpeg
+#     Debian   sudo apt install ffmpeg
+#     conda    conda install -c conda-forge ffmpeg
+# Without it, `--save foam.gif` still works and `python bubble_sim.py` with no
+# --save opens a live window regardless.
+#
+# The live window also needs a GUI backend. On a headless box there is none, so
+# use --save; inside a venv on Linux, `pip install PyQt5` gives you one.
